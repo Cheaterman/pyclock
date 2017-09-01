@@ -18,13 +18,13 @@ except NameError:
 
 
 while True:
-    raw_data = input(u'Heure du réveil (HH:MM:SS) : '.encode('utf8'))
+    raw_data = input('Heure du réveil (HH:MM:SS) : ')
     target = datetime.time(*[int(item) for item in raw_data.split(':')])
     music_files = glob.glob(os.path.join(MUSIC_FOLDER, '*.' + MUSIC_EXTENSION))
 
     if not music_files:
         print(
-            u'Erreur: Aucun fichier présent dans le dossier {}.'.format(
+            'Erreur: Aucun fichier présent dans le dossier {}.'.format(
                 MUSIC_FOLDER
             )
         )
