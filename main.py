@@ -9,6 +9,7 @@ import time
 DATE_FORMAT = '%H:%M:%S'
 MUSIC_FOLDER = 'music'
 MUSIC_EXTENSION = 'flac'
+MUSIC_PLAYER = '/usr/bin/mplayer'
 
 try:
     input = raw_input
@@ -36,12 +37,7 @@ while True:
         ):
             filename = random.choice(music_files)
             print('Playing: {}'.format(filename))
-            os.startfile(filename)
-
-            time.sleep(2)
-
-            os.system("pause")
-            os.system("taskkill /f /im foobar2000.exe")
+            os.system('%s %s' % (MUSIC_PLAYER, filename))
             break
         else:
-            time.sleep(1)
+            time.sleep(.5)
