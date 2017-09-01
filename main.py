@@ -1,10 +1,12 @@
 # encoding: utf8
 
+from __future__ import print_function
 from threading import Thread
 import datetime
 import glob
 import os
 import random
+import sys
 import time
 
 DATE_FORMAT = '%H:%M:%S'
@@ -19,14 +21,17 @@ except NameError:
 
 should_tell_time = False
 
+
 def tell_time():
     while True:
         if should_tell_time:
             print(
-                'Il est actuellement: {}'.format(
+                '\rIl est actuellement: {}'.format(
                     datetime.datetime.now().strftime(DATE_FORMAT)
-                )
+                ),
+                end='',
             )
+            sys.stdout.flush()
         time.sleep(1)
 
 thread = Thread(target=tell_time)
@@ -39,11 +44,15 @@ while True:
     while not target:
         raw_data = input('Heure du réveil (HH:MM:SS) : ')
         try:
-            target = datetime.time(*[int(item) for item in raw_data.split(':')])
+            target = datetime.time(
+                *[int(item) for item in raw_data.split(':')]
+            )
         except ValueError:
             pass
-    music_files = glob.glob(os.path.join(MUSIC_FOLDER, '*.' + MUSIC_EXTENSION))
+        except TypeError:
+            pass
 
+    music_files = glob.glob(os.path.join(MUSIC_FOLDER, '*.' + MUSIC_EXTENSION))
     if not music_files:
         print(
             'Erreur: Aucun fichier présent dans le dossier {}.'.format(
