@@ -1,17 +1,28 @@
+# encoding: utf8
+
+import datetime
 import os
+import random
 import time
-from random import randint
+
+DATE_FORMAT = '%H:%M:%S'
+
+try:
+    input = raw_input
+except NameError:
+    pass
 
 
 while True:
-    h = int(input("heure : "))
-    m = int(input("minute : "))
-    s = int(input("seconde : "))
+    raw_data = input(u'Heure du réveil (HH:MM:SS) : '.encode('utf8'))
+    target = datetime.time(*[int(item) for item in raw_data.split(':')])
 
     while True:
-        heure = time.localtime()
-        music = randint(0, 6)
-        if (heure.tm_hour == h and heure.tm_min == m and heure.tm_sec == s):
+        music = random.randint(0, 6)
+        if(
+            datetime.datetime.now()
+            .strftime(DATE_FORMAT) == target.strftime(DATE_FORMAT)
+        ):
             if music == 0:
                 os.startfile("Enter_Sandman.flac")
             elif music == 1:
