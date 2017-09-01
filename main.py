@@ -7,6 +7,7 @@ import glob
 import os
 import platform
 import random
+import subprocess
 import sys
 import time
 
@@ -56,7 +57,11 @@ def start_music():
         if should_start_music:
             filename = random.choice(music_files)
             print('Playing: {}'.format(filename))
-            os.system('%s %s' % (MUSIC_PLAYER, filename))
+            process = subprocess.Popen(
+                [MUSIC_PLAYER, filename],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+            )
             while should_start_music:
                 time.sleep(.1)
 
