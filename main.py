@@ -18,7 +18,7 @@ MUSIC_PLAYER = '/usr/bin/mplayer'
 ANY_KEY_COMMAND = (
     'pause'
     if platform.system() == 'Windows' else
-    'read -n1'
+    'bash -c "read -n1"'
 )
 KILL_PROGRAM_COMMAND = (
     'taskkill /f /im'
