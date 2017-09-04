@@ -57,10 +57,14 @@ def start_music():
         if should_start_music:
             filename = random.choice(music_files)
             print('Playing: {}'.format(filename))
+            try:
+                dev_null = subprocess.DEVNULL
+            except AttributeError:
+                dev_null = None
             process = subprocess.Popen(
                 [MUSIC_PLAYER, filename],
-                stdin=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
+                stdin=dev_null,
+                stdout=dev_null,
             )
             while should_start_music:
                 time.sleep(.1)
